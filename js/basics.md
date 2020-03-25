@@ -330,3 +330,161 @@ while (!done) {
   }
 }
 ```
+# Funktionen
+
+
+```js {cmd=node}
+function sayHello() {
+  console.log('Hallo')
+}
+
+console.log(sayHello)
+let sayHi = sayHello
+
+console.log(sayHi)
+
+sayHello()
+```
+
+Funktionen können Parameter entgegen nehmen:
+```js {cmd=node}
+function sayHello(name) {
+  console.log(`Hallo ${name}`)
+}
+
+sayHello('Jasmin')
+sayHello('Neda')
+```
+
+Parameter sind in JS optional:
+```js {cmd=node}
+function sayHello(name) {
+  if (name === undefined) {
+    console.log(`Hallo unbekannt`)
+  } else {
+    console.log(`Hallo ${name}`)
+  }
+}
+
+sayHello()
+sayHello('Urs')
+sayHello('Urs', 'Müller')
+```
+
+Wir können mit Funktionen Berechnungen anstellen, und das Resultat zurück geben.
+
+```js {cmd=node}
+let a = 5
+let b = 7
+let c = 8
+
+function add(a, b) {
+  let resultat = a + b
+  console.log(a, b, resultat)
+  return resultat
+}
+
+let resultat = add(b - 1, add(a, -1))
+console.log('Resultat:', resultat)
+console.log('Resultat:', add(c - 3, add(a, c - b)))
+```
+
+```js {cmd=node}
+let haustiere = [
+  {art: 'Hund', alter:7, name: 'Hasso'},
+  {art: 'Katze', alter:2, name: 'Fleckli'},
+  {art: 'Schildkröte', alter:40, name: 'Wilma'},
+  {art: 'Meerschweinchen', alter:2, name: 'Ida'},
+  {art: 'Meerschweinchen', alter:3, name: 'Jakob'},
+]
+
+function findWilma(haustier) {
+  // console.log(haustier)
+  if (haustier.name.toLowerCase() === 'wilma') {
+    return true
+  } else {
+    return false
+  }
+}
+
+let wilma = haustiere.find(findWilma)
+console.log('Resultat:', wilma)
+```
+
+
+#### Kurznotation für Funktionen (Fat-Arrow-Notation)
+
+```js {cmd=node}
+
+let haustiere = [
+  {art: 'Hund', alter:7, name: 'Hasso'},
+  {art: 'Katze', alter:2, name: 'Fleckli'},
+  {art: 'Schildkröte', alter:40, name: 'Wilma'},
+  {art: 'Meerschweinchen', alter:2, name: 'Ida'},
+  {art: 'Meerschweinchen', alter:3, name: 'Jakob'},
+]
+
+let findWilma = haustier => haustier.name.toLowerCase() === 'wilma'
+
+let wilma = haustiere.find(haustier => haustier.name.toLowerCase() === 'wilma')
+console.log('Resultat:', wilma)
+
+console.log('Alle Meerschweinchen:', haustiere.filter(
+  haustier => haustier.art.toLowerCase() === 'meerschweinchen'
+))
+
+console.log('Junge Tiere:', haustiere.filter(x => x.alter <= 3))
+
+haustiere.sort((a, b) => a.alter - b.alter)
+console.log(haustiere)
+```
+
+## Abschliessendes Beispiel
+
+RPN-Rechner Volume 2
+
+```js {cmd=node}
+let input = '5 3 - 0 cos + 2 %'
+  .split(' ')                // An den Leerzeichen auseinander schneiden
+  .filter((x) => x !== '')   // Leere Strings rausfiltern
+  .map(x => {                // Versuchen so viel wie möglich in eine Zahl verwandeln
+    let num = parseInt(x, 10)
+    if (isNaN(num)) {
+      return x
+    } else {
+      return num
+    }
+  })
+console.log('Input:', input)
+
+let stack = []
+
+let ops = {
+  '+': (a, b) => a + b,       '-': (a, b) => a - b,
+  '*': (a, b) => a * b,       '/': (a, b) => a / b,
+  '%': (a, b) => a % b,
+  '--': a => a - 1,           '++': a => a + 1,
+  'sin': Math.sin,            'cos': Math.cos,
+}
+
+
+for (let x of input) {
+  if (typeof x === 'number') {
+    stack.push(x)
+  } else {
+    let op = ops[x]
+    if (op === undefined) {
+      console.log('Operation unbekannt:', x)
+      break
+    } else {
+      let args = []
+      for (let i of Array(op.length)) {
+        args.push(stack.pop())
+      }
+      args.reverse()
+      stack.push(op(...args))
+    }
+  }
+}
+console.log('Resultat:', stack[0])
+```
