@@ -133,6 +133,91 @@ console.log(teilnehmer)
 console.log(`${ausfall} kann nicht teilnehmen`)
 ```
 
+### Objekt
+
+Objekte sind komplexe Datentypen, in welchen Werte (values) unter Stichworten oder Schlüsselwörtern (keys) abgespeichert werden.
+
+Leere Objekte:
+```js {cmd=node}
+let o = {}
+```
+
+Gefüllte Objekte (Die Anführungszeichen bei den Keys sind optional).
+```js {cmd=node}
+let person = {
+  'vorname': 'Julia',
+  'nachname': 'Heinzen',
+  alter: 29,
+  beruf: 'Schreinerin',
+  hobbies: ['Velofahren', 'Musik', 'Brettspiele'],
+  haustiere: [
+    {art: 'Hund', alter: 5, name: 'Hasso'},
+    {art: 'Hamster', alter: 1, name: 'Mimmi'},
+  ],
+}
+
+console.log(person)
+console.log(person.alter)    // Default: Punktnotation
+console.log(person['vorname'])
+
+nameKey = 'nachname'
+
+console.log(`key: ${nameKey}, value: ${person[nameKey]}`)
+```
+
+Die Keys sind _immer_ Strings
+```js {cmd=node}
+let o = { 1: 'Eins', '.zwei': 'Zwei'}
+console.log(o)
+
+// console.log(o.1)
+console.log(o['1'])
+
+//console.log(o..zwei)
+console.log(o['.zwei'])
+```
+
+Iterieren über den Inhalt von Objekten:
+```js {cmd=node}
+let person = {vorname: 'Julia', nachname: 'Heinzen', alter: 29}
+
+console.log('Inhalt (values):')
+for (let val of Object.values(person)) {
+  console.log(' -', val)
+}
+
+console.log('Schlüsselwörter (keys):')
+for (let key of Object.keys(person)) {
+  console.log(' -', key)
+}
+
+console.log('Einträge (entries):')
+for (let [key, val] of Object.entries(person)) {
+  console.log(' -', key, ':' , val)
+}
+```
+
+**Bemerkung**: Die Ordnung der Einträge in Objekten bleibt erhalten.
+
+##### Hinzufügen und Löschen von Einträgen
+
+```js {cmd=node}
+let o = {}
+console.log(o)
+
+// Hinzufügen
+o.a = 'Eins'
+console.log(o)
+
+o.a = 'zwei'
+console.log(o)
+
+// Löschen
+delete o.a
+console.log(o)
+console.log(o.a === undefined)
+```
+
 ## Kontrollstrukturen
 
 ### if (Verzweigung)
