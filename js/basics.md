@@ -4,9 +4,22 @@
 
 ### Nichts
 
+`undefined` und `null` werden gebraucht, um die Absenz von einem Resultat zu markieren. `undefined` ist der Default.
+
 ```js {cmd=node}
-console.log(null)
 console.log(undefined)
+console.log(null)
+
+let l = [1]
+console.log(l.pop())
+console.log(l.pop())
+
+let o = {a: 42}
+console.log(o.a)
+console.log(o.b)
+
+console.log('Marco'.match(/r/))
+console.log('Marco'.match(/R/))
 ```
 
 ### Wahr oder Falsch (boolean)
@@ -171,7 +184,7 @@ Ein komplizierteres Beispiel (HP-Rechner lässt grüssen):
 
 ```js {cmd=node}
 let stack = []
-let input = [1, 2, 3, '*', '+']
+let input = [1, 2, 3, '*', '+']  // 1 + (2 * 3)
 
 for (let x of input) {
   if (typeof x === 'number') {
@@ -189,12 +202,12 @@ for (let x of input) {
     }
   }
 }
-console.log('Resultat', stack[0])
+console.log('Resultat:', stack[0])
 ```
 
 ## while-loop
 
-Ein ganz okayer while-Loop
+Ein ganz okayer while-Loop:
 
 ```js {cmd=node}
 let done = false
@@ -212,6 +225,7 @@ while (!done) {
 console.log('Summe:', sum)
 ```
 
+While-loops eignen sich, wenn die Menge der Arbeit nicht bekannt ist.
 
 Colatz-Zahlen:
 ```js {cmd=node}
@@ -219,9 +233,9 @@ let zahl = Math.round(Math.random() * 100)
 let done = false
 
 while (!done) {
-  if (zahl % 2 === 0) {
+  if (zahl % 2 === 0) {  // gerade Zahl
     zahl = zahl / 2
-  } else {
+  } else {               // ungerade Zahl
     zahl = zahl * 3 + 1
   }
   console.log(zahl)
