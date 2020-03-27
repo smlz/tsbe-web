@@ -439,6 +439,31 @@ haustiere.sort((a, b) => a.alter - b.alter)
 console.log(haustiere)
 ```
 
+### Methoden
+
+Methoden sind Funktionen von Objekten.
+```js {cmd=node}
+let name = 'Marco'
+
+console.log(name.length)
+console.log(name.toLowerCase())
+
+let obj = {
+  length: 5,
+  irgend: function() {  // Konventionelle Schreibweise
+    return this.length * 2
+  },
+  etwas() {    // Kurzschreibweise
+    return this.irgend() * 3
+  }
+}
+console.log(obj.length)
+console.log(obj.irgend())
+obj.length = 2
+console.log(obj.irgend())
+console.log(obj.etwas())
+```
+
 ## Abschliessendes Beispiel
 
 RPN-Rechner Volume 2
